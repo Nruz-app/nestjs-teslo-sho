@@ -1,0 +1,45 @@
+#version: '3'
+
+services:
+
+  #****************************************#
+  # * BDD  : Postgres                      #
+  #****************************************#
+  
+  db:
+    image: postgres:14.3
+    restart: always
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: ${DB_USERNAME}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    container_name: teslodb
+    volumes:
+      - ./postgres:/var/lib/postgresql/data
+
+  #**********************************************************************#
+  # * Teslo-shop  : Error en el contenedor por el uso de paquete bcrypt  #
+  #**********************************************************************#
+  teslo-shop:
+    container_name: teslo-shop
+    build: ./
+    restart: always
+    volumes:
+      - ./src:/usr/src/app/src
+    command: npm run start:dev
+    environment:
+      STAGE: ${STAGE}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+      DB_HOST: db
+      DB_PORT: ${DB_PORT}
+      DB_USERNAME: ${DB_USERNAME}
+      PORT: ${PORT}
+      HOST_API: ${HOST_API}
+      JWT_SECRET: ${JWT_SECRET}
+    ports:
+      - ${PORT}:${PORT}
+    depends_on:
+      - db          
