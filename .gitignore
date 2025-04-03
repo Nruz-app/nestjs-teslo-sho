@@ -5,6 +5,7 @@
 postgres/
 
 .env
+dockerHub/.env
 
 
 # Logs
