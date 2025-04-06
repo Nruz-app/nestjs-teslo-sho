@@ -1,0 +1,61 @@
+# ETAPA 1: Dependencias
+FROM node:21-alpine3.19 AS deps
+
+# Instala herramientas necesarias para compilar bcrypt
+RUN apk add --no-cache python3 make g++ 
+
+# Establece el directorio de trabajo
+WORKDIR /usr/src/app
+
+# Copia los archivos del proyecto
+COPY package.json  package-lock.json tsconfig.json ./
+
+# Instala las dependencias (incluyendo bcrypt)
+RUN npm install
+
+# ETAPA 2: Builder - Construye la aplicación
+FROM node:21-alpine3.19 AS build
+
+WORKDIR /usr/src/app
+
+# Copiar de deps, los módulos de node
+COPY --from=deps /usr/src/app/node_modules ./node_modules
+
+# Copia el resto del código fuente
+COPY . .
+
+#RUN npx prisma generate
+
+# RUN npm run test
+
+RUN npm run build
+
+
+# ETAPA 3: Crear la imagen final de Docker (Producción)
+FROM node:21-alpine3.19 AS prod
+
+# Variable de entorno para la versión de la app
+ARG VERSION
+
+ENV NODE_ENV=$VERSION
+
+WORKDIR /usr/src/app
+
+COPY package.json  package-lock.json tsconfig.json ./
+
+#Elimina todas las dependencias actuales y vuelve a instalar solo las de producción
+RUN npm ci -f --only=production && npm cache clean --force #(error sh: nest: not found)
+
+# Copiar la carpeta de node_modules
+COPY --from=build /usr/src/app/node_modules ./node_modules
+
+# Copiar la carpeta de DIST
+COPY --from=build /usr/src/app/dist ./dist
+
+#USER node
+
+# Expone el puerto de la aplicación (cambia según tu configuración)
+EXPOSE 3000
+
+# Comando para ejecutar la aplicación
+CMD [ "node", "dist/main.js" ]

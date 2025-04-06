@@ -34,5 +34,24 @@ http://localhost:3000/api/seed
 http://localhost:3000/api
 ```
 
+###### Comandos Ejecutar para contruir Imagenes de Docker ######
 
-# Production notes:
+# Comando limpiar docker
+``` 
+docker-compose down
+docker system prune -a --volumes -f
+```
+# Comando Para countruir la imagen local y prod
+``` 
+docker-compose build
+docker-compose -f docker-compose.prod.yml build
+```
+# Comado para levantar imagen local y prod
+```
+docker-compose up -d
+docker-compose -f docker-compose.prod.yml up -d
+```
+# Comado para subir imagen al repositorio de google cloud (GCP)
+```
+docker image push southamerica-west1-docker.pkg.dev/teslo-shop-backend/teslo-shop/teslo-shop-backend
+```
