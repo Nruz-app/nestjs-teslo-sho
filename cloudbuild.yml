@@ -10,7 +10,6 @@ steps:
         "--platform=linux/amd64",
         "."
       ]
-
   - name: "gcr.io/cloud-builders/docker"
     args:
       [
@@ -22,4 +21,4 @@ images:
   - "southamerica-west1-docker.pkg.dev/teslo-shop-backend/teslo-shop/teslo-shop-backend:$SHORT_SHA"
 
 options:
-  logging: CLOUD_LOGGING_ONLY
+  logging: 'CLOUD_LOGGING_ONLY'
