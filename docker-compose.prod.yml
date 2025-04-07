@@ -16,7 +16,7 @@ services:
     #(teslo-shop:latest) #Imagen local    
     #image: teslo-shop 
     #Imagen de Google Cloud Registry
-    image: southamerica-west1-docker.pkg.dev/teslo-shop-backend/teslo-shop/teslo-shop-backend
+    image: us-central1-docker.pkg.dev/teslo-shop-backend/teslo-shop-app/teslo-shop-backend
     restart: always
     volumes:
       - ./src:/usr/src/app/src

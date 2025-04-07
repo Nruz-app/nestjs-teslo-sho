@@ -53,5 +53,6 @@ docker-compose -f docker-compose.prod.yml up -d
 ```
 # Comado para subir imagen al repositorio de google cloud (GCP)
 ```
-docker image push southamerica-west1-docker.pkg.dev/teslo-shop-backend/teslo-shop/teslo-shop-backend
+gcloud auth configure-docker us-central1-docker.pkg.dev
+docker image push us-central1-docker.pkg.dev/teslo-shop-backend/teslo-shop-app/teslo-shop-backend
 ```
