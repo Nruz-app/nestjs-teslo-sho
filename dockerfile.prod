@@ -34,7 +34,7 @@ RUN npm run build
 # ETAPA 3: Crear la imagen final de Docker (Producción)
 FROM node:21-alpine3.19 AS prod
 
-# Variable de entorno para la versión de la app
+# Variable de entorno para la versión de la app (Configurar secret manager)
 ARG VERSION
 
 ENV NODE_ENV=$VERSION
@@ -44,7 +44,7 @@ WORKDIR /usr/src/app
 COPY package.json  package-lock.json tsconfig.json ./
 
 #Elimina todas las dependencias actuales y vuelve a instalar solo las de producción
-RUN npm ci -f --only=production && npm cache clean --force #(error sh: nest: not found)
+RUN npm ci -f --only=production && npm cache clean --force
 
 # Copiar la carpeta de node_modules
 COPY --from=build /usr/src/app/node_modules ./node_modules

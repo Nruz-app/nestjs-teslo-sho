@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: pg-admin
+  name: pg-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pg-admin
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pg-admin
+    spec:
+      containers:
+      - image: dpage/pgadmin4:6.17
+        name: pgadmin4
+        env:
+        - name: PGADMIN_DEFAULT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: pg-admin-secret
+              key: DB_PASSWORD
+        - name: PGADMIN_DEFAULT_EMAIL
+          valueFrom:
+            secretKeyRef:
+              name: pg-admin-secret
+              key: PG_USER_EMAIL
+        - name: PGADMIN_CONFIG_ENHANCED_COOKIE_PROTECTION
+          value: "False"
+status: {}

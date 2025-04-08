@@ -56,3 +56,7 @@ docker-compose -f docker-compose.prod.yml up -d
 gcloud auth configure-docker us-central1-docker.pkg.dev
 docker image push us-central1-docker.pkg.dev/teslo-shop-backend/teslo-shop-app/teslo-shop-backend
 ```
+
+# Link Googloe Cloud N.ruz (CLI)
+
+[View Teslo Shop Backend Artifact](https://console.cloud.google.com/artifacts/docker/teslo-shop-backend/us-central1/teslo-shop-app/teslo-shop-backend?invt=AbuE7w&project=teslo-shop-backend)

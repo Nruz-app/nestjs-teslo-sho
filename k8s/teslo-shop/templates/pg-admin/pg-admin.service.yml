@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: pg-admin
+  name: pg-admin-service
+spec:
+  ports:
+  - name: "80"
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: pg-admin
+  type: NodePort
+status:
+  loadBalancer: {}

@@ -4,6 +4,8 @@
 
 postgres/
 
+k8s/teslo-shop/gcp-teslo-shop-backend.json
+
 .env
 dockerHub/.env
 
