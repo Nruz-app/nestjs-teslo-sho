@@ -33,5 +33,5 @@ kubectl create deployment teslo-shop --image=us-central1-docker.pkg.dev/teslo-sh
 
 ## Crear Service 
 ```
-kubectl create service nodeport teslo-shop-service --tcp=3000 --dry-run=client -o yaml > teslo-shop.service.yml
+kubectl create service nodeport teslo-shop-secret --tcp=3000 --dry-run=client -o yaml > teslo-shop.service.yml
 ```
